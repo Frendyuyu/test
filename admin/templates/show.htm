@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div id="subBox"> 
+   <!-- {if $open.box || $open.fragment} -->
+   <div id="sMenu">
+    <h3><i class="fa fa-picture-o"></i>{$lang.menu_site_home_other}</h3>
+    <ul>
+     <li><a href="site_home.php"{if $cur eq 'site_home'} class="cur"{/if}>{$lang.site_home}</a></li>
+     <li><a href="show.php"{if $cur eq 'show'} class="cur"{/if}>{$lang.show}</a></li>
+     <!-- {if $open.fragment} -->
+     <li><a href="fragment.php"{if $cur eq 'fragment'} class="cur"{/if}>{$lang.fragment}</a></li>
+     <!-- {/if} --> 
+     <!-- {if $open.box} -->
+     <li><a href="box.php"{if $cur eq 'box'} class="cur"{/if}>{$lang.box}</a></li>
+     <!-- {/if} -->
+    </ul>
+   </div>
+   <!-- {/if} -->
+   <div {if $open.box || $open.fragment}id="sMain"{/if}>
+    <div class="mainBox" style="{$workspace.height}">
+     <h3>{$ur_here}
+      <p>{$lang.show_cue}</p>
+     </h3>
+     <div class="simpleModule">
+      <div class="left">
+       <div class="title">{$lang.show_add}</div>
+       <div class="formBox">
+        <form action="show.php?rec={if $show}update{else}insert{/if}"{if $show} class="formEdit"{/if} method="post" enctype="multipart/form-data">
+         <div class="formBasic">
+          <dl>
+           <dt>{$lang.show_name}</dt>
+           <dd>
+            <input type="text" name="show_name" value="{$show.show_name}" size="40" class="inpMain" />
+            <p class="lang">{$btn_lang.show_name}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.show_img}</dt>
+           <dd>
+            <input type="file" name="show_img" class="inpFlie" />
+            {if $show.show_img}<a href="{$show.show_img}" target="_blank"><img src="images/icon_yes.png"></a>{else}{/if} 
+            <p class="lang">{$btn_lang.show_img}</p>
+            <p class="cue">{$setting.theme.banner_img_size}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.show_link}</dt>
+           <input type="text" name="show_link" value="{$show.show_link}" size="40" class="inpMain" />
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.show_text}</dt>
+           <dd>
+            <textarea name="show_text" cols="50" rows="4" class="textArea">{$show.show_text}</textarea>
+            <p class="lang">{$btn_lang.show_text}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.sort}</dt>
+           <dd>
+           <dd>
+            <input type="text" name="sort" value="{if $show.sort}{$show.sort}{else}50{/if}" size="20" class="inpMain" />
+           </dd>
+          </dl>
+          <dl>
+           <!-- {if $show} --> 
+           <a href="show.php" class="btnGray">{$lang.cancel}</a>
+           <input type="hidden" name="id" value="{$show.id}">
+           <!-- {/if} -->
+           <input type="hidden" name="token" value="{$token}" />
+           <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+          </dl>
+         </div>
+        </form>
+       </div>
+      </div>
+      <div class="right">
+       <div class="title">{$lang.show_list}</div>
+       <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+         <td width="100"><b>{$lang.show_name}</b></td>
+         <td class="m-none"></td>
+         <td width="50" align="center"><b>{$lang.sort}</b></td>
+         <td width="80" align="center"><b>{$lang.handler}</b></td>
+        </tr>
+        <!-- {foreach from=$show_list item=show_list} -->
+        
+        <tr{if $show_list.id eq $id} class="active"{/if}>
+        
+        <td><a href="{$show_list.show_img}" target="_blank"><img src="{$show_list.show_img}" width="100" /></a></td>
+         <td class="m-none">{$show_list.show_name}</td>
+         <td align="center">{$show_list.sort}</td>
+         <td align="center"><a href="show.php?rec=edit&id={$show_list.id}">{$lang.edit}</a> | <a href="show.php?rec=del&id={$show_list.id}">{$lang.del}</a></td>
+        </tr>
+        <!-- {/foreach} -->
+       </table>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ {include file="footer.htm"} </div>
+</body>
+</html>

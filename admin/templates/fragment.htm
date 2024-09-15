@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div id="subBox">
+   <div id="sMenu">
+    <h3><i class="fa fa-picture-o"></i>{$lang.menu_site_home_other}</h3>
+    <ul>
+     <li><a href="site_home.php"{if $cur eq 'site_home'} class="cur"{/if}>{$lang.site_home}</a></li>
+     <li><a href="show.php"{if $cur eq 'show'} class="cur"{/if}>{$lang.show}</a></li>
+     <li><a href="fragment.php"{if $cur eq 'fragment'} class="cur"{/if}>{$lang.fragment}</a></li>
+     <!-- {if $open.box} -->
+     <li><a href="box.php"{if $cur eq 'box'} class="cur"{/if}>{$lang.box}</a></li>
+     <!-- {/if} -->
+    </ul>
+   </div>
+   <div id="sMain">
+    <div id="siteHome" class="mainBox" style="{$workspace.height}">
+     <h3>
+      <a href="{$action_link.href}" class="actionBtn">{$action_link.text}</a>
+      <!-- {if $rec eq 'edit'} -->
+      {if $fragment.lock eq '0'}
+      <a href="fragment.php?rec=del&id={$fragment.id}" class="actionBtn gray">{$lang.del}</a>
+      {/if}
+      <a href="javascript:;" class="actionBtn gray" data-popup-id="linkBox" data-title="{$link_box.title}" data-text="{$link_box.text}" data-btn-name="{$link_box.btn_name}" data-btn-link="{$link_box.btn_link}">{$link_box.action}</a>
+      <!-- {/if} -->
+      {$ur_here}
+     </h3>
+     <!-- {if $rec eq 'default'} 数据列表 -->
+     <div class="fragmentList"> 
+      <!-- {foreach from=$fragment_list name=fragment_list item=fragment} -->
+      <div class="area-box{if $smarty.foreach.fragment_list.iteration % 2 eq 0} bg{/if}">
+       <div class="item">
+        <div class="name">{$fragment.name}</div>
+        <div class="content">{$fragment.content}</div>
+        <div class="edit"><a href="fragment.php?rec=edit&id={$fragment.id}">{$lang.edit}</a></div>
+       </div>
+       <!-- {foreach from=$fragment.child item=child} -->
+       <div class="item">
+        <div class="name">{$child.name}</div>
+        <div class="content">{$child.content}</div>
+        <div class="edit"><a href="fragment.php?rec=edit&id={$child.id}">{$lang.edit}</a></div>
+       </div>
+       <!-- {/foreach} --> 
+       <!-- {foreach from=$fragment.box_list item=box} -->
+       <div class="item">
+        <div class="name">{$box.name}</div>
+        <div class="content">{$box.text}</div>
+        <div class="edit"><a href="box.php?rec=edit&id={$box.id}">{$lang.edit}</a></div>
+       </div>
+       <!-- {/foreach} --> 
+      </div>
+      <!-- {/foreach} --> 
+     </div>
+     <!-- {/if} --> 
+     <!-- {if $rec eq 'add' || $rec eq 'edit'} 数据添加或编辑 -->
+     <div class="simpleModule big">
+      <div class="left">
+       <div class="formBox">
+        <form action="fragment.php?rec={$form_action}" method="post" enctype="multipart/form-data">
+         <div class="formBasic">
+          <dl>
+           <dt>{$lang.fragment_name}</dt>
+           <dd>
+            <input type="text" name="name" value="{$fragment.name}" size="40" class="inpMain" />
+            <span class="lang">{$btn_lang.name}</span>
+            <p class="cue">{$lang.fragment_name_cue}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.fragment_mark}</dt>
+           <dd>
+            <input type="text" name="mark" value="{$fragment.mark}" size="40" class="inpMain" />
+            <p class="cue">{$lang.fragment_mark_cue}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.fragment_image}</dt>
+           <dd>
+            <div class="image"> 
+             <!-- {if $fragment.image} --> 
+             <a href="{$fragment.image}" target="_blank"><img src="{$fragment.image}" height="100" /></a> 
+             <!-- {/if} -->
+             <p>
+              <input type="file" name="image" />
+              <p class="lang">{$btn_lang.image}</p>
+             </p>
+            </div>
+            <p class="cue">{$lang.fragment_image_cue}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.fragment_text}</dt>
+           <dd>
+            <textarea name="text" cols="92" rows="4" class="textArea">{$fragment.text}</textarea>
+            <p class="lang">{$btn_lang.text}</p>
+            <p class="cue">{$lang.fragment_text_cue}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.fragment_link}</dt>
+           <dd>
+            <input type="text" name="link" value="{$fragment.link}" size="90" class="inpMain" />
+            <span class="lang">{$btn_lang.link}</span>
+            <p class="cue">{$lang.fragment_link_cue}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.fragment_home}</dt>
+           <dd>
+            <label for="home_1">
+             <input type="radio" name="home" id="home_1" value="1"{if $fragment.home eq '1' || !$fragment.home} checked="true"{/if}>
+             {$lang.yes}</label>
+            <label for="home_0">
+             <input type="radio" name="home" id="home_0" value="0"{if $fragment.home eq '0'} checked="true"{/if}>
+             {$lang.no}</label>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.fragment_parent}</dt>
+           <dd>
+            <select name="parent_id">
+             <option value="0">{$lang.empty}</option>
+             <!-- {foreach from=$fragment_list item=list} --> 
+             <!-- {if $list.id eq $fragment.parent_id} -->
+             <option value="{$list.id}" selected="selected">{$list.name}</option>
+             <!-- {else} -->
+             <option value="{$list.id}">{$list.name}</option>
+             <!-- {/if} --> 
+             <!-- {/foreach} -->
+            </select>
+            <span class="cue">{$lang.fragment_parent_cue}</span></dd>
+          </dl>
+          <dl>
+           <input type="hidden" name="token" value="{$token}" />
+           <input type="hidden" name="id" value="{$fragment.id}">
+           <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+          </dl>
+         </div>
+        </form>
+       </div>
+      </div>
+      <!-- {if $fragment.box} -->
+      <div class="right">
+       <div class="title">{$lang.box_list}</div>
+       <div class="fragmentList inPage">
+        <div class="area-box"> 
+         <!-- {foreach from=$box_list item=box} -->
+         <div class="item">
+          <div class="name">{$box.name}</div>
+          <div class="content">{$box.text}</div>
+          <div class="edit"><a href="box.php?rec=edit&id={$box.id}">{$lang.edit}</a></div>
+         </div>
+         <!-- {/foreach} --> 
+        </div>
+       </div>
+      </div>
+      <!-- {/if} --> 
+     </div>
+     <!-- {/if} --> 
+    </div>
+   </div>
+  </div>
+ </div>
+ {include file="footer.htm"} </div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+</head>
+<body>
+<div id="dcWrap">
+ {include file="header.htm"}
+ <div class="developer">
+  <!-- {if $rec eq 'default'} 参数设置列表 -->
+  <h3><a href="system.php?dou" class="actionBtn">{$lang.system_developer}</a>{$lang.system_developer} > {$ur_here}<em>{$lang.system_developer_cue}</em></h3>
+  <div class="subAction">
+   <a href="{$action_link.href}" class="btnGray">{$action_link.text}</a> <a href="parameter.php?rec=set" class="btnGray">{$lang.parameter_value}</a>
+  </div>
+  <div class="box">
+   <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <tr>
+     <th width="40" align="center">{$lang.record_id}</th>
+     <th align="left">{$lang.parameter_name}</th>
+     <th align="left">{$lang.parameter_lang}</th>
+     <th align="left">{$lang.parameter_cue}</th>
+     <th width="80" align="center">{$lang.handler}</th>
+    </tr>
+    <!-- {foreach from=$parameter_list item=parameter} -->
+    <tr>
+     <td align="center">{$parameter.id}</td>
+     <td>{$parameter.name}</td>
+     <td>{$parameter.lang}</td>
+     <td>{$parameter.cue}</td>
+     <td align="center">
+      <a href="parameter.php?rec=edit&id={$parameter.id}">{$lang.edit}</a> | <a href="parameter.php?rec=del&id={$parameter.id}">{$lang.del}</a>
+     </td>
+    </tr>
+    <!-- {/foreach} -->
+   </table>
+  </div>
+  <!-- {/if} -->
+  <!-- {if $rec eq 'add' || $rec eq 'edit'} 参数设置添加或编辑 -->
+  <h3><a href="system.php?dou" class="actionBtn">{$lang.system_developer}</a>{$lang.system_developer} > {$ur_here}<em>{$lang.system_developer_cue}</em></h3>
+  <div class="subAction">
+   <a href="{$action_link.href}" class="btnGray">{$action_link.text}</a>
+  </div>
+  <form action="parameter.php?rec={$form_action}" method="post">
+   <table width="100%" border="0" cellpadding="0" cellspacing="0" class="formTable">
+    <tr>
+     <th>{$lang.parameter_name}</th>
+     <td>
+      <input type="text" name="name" value="{$parameter.name}" size="20" class="inpMain" />
+      <p class="cue">{$lang.parameter_help}</p>
+     </td>
+    </tr>
+    <tr>
+     <th>{$lang.parameter_lang}</th>
+     <td>
+      <input type="text" name="lang" value="{$parameter.lang}" size="20" class="inpMain" />
+     </td>
+    </tr>
+    <tr>
+     <th>{$lang.parameter_cue}</th>
+     <td>
+      <input type="text" name="cue" value="{$parameter.cue}" size="80" class="inpMain" />
+     </td>
+    </tr>
+    <tr>
+     <th>{$lang.sort}</th>
+     <td>
+      <input type="text" name="sort" value="{if $parameter.sort}{$parameter.sort}{else}50{/if}" size="10" class="inpMain" />
+     </td>
+    </tr>
+   </table>
+   <div class="submitBox">
+    <input type="hidden" name="group" value="{$group}" />
+    <input type="hidden" name="token" value="{$token}" />
+    <input type="hidden" name="id" value="{$parameter.id}">
+    <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+   </div>
+  </form>
+  <!-- {/if} -->
+  <!-- {if $rec eq 'set'} 参数值 -->
+  <h3><a href="{$action_link.href}" class="actionBtn add">{$action_link.text}</a>{$ur_here}</h3>
+  <form action="parameter.php?rec=set_post" method="post">
+   <table width="100%" border="0" cellpadding="0" cellspacing="0" class="formTable">
+    <!-- {foreach from=$parameter_list item=parameter} -->
+    <tr>
+     <th>{$parameter.lang}</th>
+     <td>
+      <input type="text" name="{$parameter.name}" value="{$parameter.value}" size="50" class="inpMain" />
+      <!-- {if $parameter.cue} --><p class="cue">{$parameter.cue}</p><!-- {/if} -->
+     </td>
+    </tr>
+    <!-- {/foreach} -->
+    <tr>
+     <th></th>
+     <td>
+      <input type="hidden" name="token" value="{$token}" />
+      <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+     </td>
+    </tr>
+   </table>
+  </form>
+  <!-- {/if} -->
+ </div>
+ {include file="footer.htm"}
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+<script type="text/javascript" src="images/slide.js"></script>
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div id="subBox"> 
+   <!-- {if $open.box || $open.fragment} -->
+   <div id="sMenu">
+    <h3><i class="fa fa-picture-o"></i>{$lang.menu_site_home_other}</h3>
+    <ul>
+     <li><a href="site_home.php"{if $cur eq 'site_home'} class="cur"{/if}>{$lang.site_home}</a></li>
+     <li><a href="show.php"{if $cur eq 'show'} class="cur"{/if}>{$lang.show}</a></li>
+     <!-- {if $open.fragment} -->
+     <li><a href="fragment.php"{if $cur eq 'fragment'} class="cur"{/if}>{$lang.fragment}</a></li>
+     <!-- {/if} --> 
+     <!-- {if $open.box} -->
+     <li><a href="box.php"{if $cur eq 'box'} class="cur"{/if}>{$lang.box}</a></li>
+     <!-- {/if} -->
+    </ul>
+   </div>
+   <!-- {/if} -->
+   <div {if $open.box || $open.fragment}id="sMain"{/if}>
+    <div class="mainBox" style="{$workspace.height}">
+     <h3>{$ur_here}
+      <p>{$lang.show_cue} <i class="fa fa-angle-right"></i></p>
+     </h3>
+     <div id="siteHome">
+      <div class="fragmentList"> 
+       <div class="area-box">
+        <div class="item">
+         <div class="name">{$lang.site_logo}</div>
+         <div class="content"><img src="{$site.root_url}/theme/{$site.site_theme}/images/{$site.site_logo}" alt="{$site.site_name}" /></div>
+         <div class="edit"><a href="system.php?light=site_logo">{$lang.edit}</a></div>
+        </div>
+       </div>
+       <div class="slideBox">
+        <ul class="slideShow">
+         <!-- {foreach from=$show_list item=show_list} -->
+         <li><a href="show.php?rec=edit&id={$show_list.id}"><img src="{$show_list.show_img}" alt="{$show_list.show_name}"><span><em>{$lang.edit}</em></span></a></li>
+         <!-- {/foreach} -->
+        </ul>
+       </div>
+       <!-- {foreach from=$fragment_list name=fragment_list item=fragment} -->
+       <div class="area-box{if $smarty.foreach.fragment_list.iteration % 2 eq 0} bg{/if}">
+        <div class="item">
+         <div class="name parent">{$fragment.name}</div>
+         <div class="content">{$fragment.content}</div>
+         <div class="edit"><a href="fragment.php?rec=edit&id={$fragment.id}">{$lang.edit}</a></div>
+        </div>
+        <!-- {foreach from=$fragment.child item=child} -->
+        <div class="item">
+         <div class="name">{$child.name}</div>
+         <div class="content">{$child.content}</div>
+         <div class="edit"><a href="fragment.php?rec=edit&id={$child.id}">{$lang.edit}</a></div>
+        </div>
+        <!-- {/foreach} -->
+        <!-- {foreach from=$fragment.box_list item=box} -->
+        <div class="item">
+         <div class="name">{$box.name}</div>
+         <div class="content">{$box.text}</div>
+         <div class="edit"><a href="box.php?rec=edit&id={$box.id}">{$lang.edit}</a></div>
+        </div>
+        <!-- {/foreach} -->
+       </div>
+       <!-- {/foreach} --> 
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ {include file="footer.htm"} </div>
+<script type="text/javascript">
+{literal}
+$(function() {
+	$('.slideShow').responsiveSlides({
+  auto: false,
+		pager: true,
+		nav: true,
+		namespace: 'slide',
+	});
+});
+{/literal}
+</script>
+</body>
+</html>

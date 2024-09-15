@@ -1,0 +1,35 @@
+<!-- {if $workspace.admin_theme_custom.header} -->
+{include file="header.custom.htm"}
+<!-- {else} -->
+<div id="dcHead">
+ <div id="head">
+  <div class="logo"><a href="index.php" title="{if !$pure_mode}DouPHP轻量级企业网站管理系统{else}{$site.site_name}{/if}"{if $authorized} class="authorized"{/if}>{if !$pure_mode}DouPHP轻量级企业网站管理系统{else}{$site.site_name}{/if}</a></div>
+  <div class="box">
+   <ul class="siteName">{$site.site_name}</ul>
+   <ul class="nav">
+    <!-- {if !$site.close_douphp_plus} -->
+    <li class="m-none"><a href="module.php"{if $cur eq 'module'} class="cur"{/if}>{$lang.top_module}{if $unum.module}<span class="unum"><span>{$unum.module}</span></span>{/if}</a></li>
+    <!-- {/if} -->
+    <li class="m-none"><a href="{$site.root_url}" target="_blank">{$lang.top_go_site}</a></li>
+    <li><a href="index.php?rec=clear_cache">{$lang.clear_cache}</a></li>
+    <!-- {if !$authorized} -->
+    <li><a href="https://www.douphp.com/buy" target="_blank">{$lang.top_buy_authorize}</a></li>
+    <!-- {/if} -->
+    <!-- {if $open.language} -->
+    <li><a href="language.php">{$lang.language}</a></li>
+    <!-- {/if} -->
+    <li class="dropMenu"><a href="javaScript:;" class="parent">{$lang.top_welcome}{$user.user_name}</a>
+     <div class="menu">
+      <a href="manager.php?rec=edit&id={$user.user_id}">{$lang.top_manager_edit}</a>
+      <!-- {if !$pure_mode} -->
+      <a href="cloud.php?rec=account">{$lang.cloud_account}</a>
+      <!-- {/if} -->
+      <a href="login.php?rec=logout">{$lang.top_logout}</a>
+     </div>
+    </li>
+   </ul>
+  </div>
+ </div>
+</div>
+<!-- dcHead 结束 -->
+<!-- {/if} -->

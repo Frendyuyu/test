@@ -1,0 +1,4 @@
+<?php
+$installed_file_list = 'a:21:{i:0;s:6:"#admin";i:1;s:19:"#admin/fragment.php";i:2;s:16:"#admin/templates";i:3;s:29:"#admin/templates/fragment.css";i:4;s:29:"#admin/templates/fragment.htm";i:5;s:5:"#data";i:6;s:12:"#data/backup";i:7;s:25:"#data/backup/fragment.sql";i:8;s:8:"#include";i:9;s:26:"#include/fragment.init.php";i:10;s:10:"#languages";i:11;s:16:"#languages/zh_cn";i:12;s:22:"#languages/zh_cn/admin";i:13;s:40:"#languages/zh_cn/admin/fragment.lang.php";i:14;s:16:"#languages/zh_tw";i:15;s:22:"#languages/zh_tw/admin";i:16;s:40:"#languages/zh_tw/admin/fragment.lang.php";i:17;s:8:"#_update";i:18;s:19:"#_update/action.php";i:19;s:13:"#_update/data";i:20;s:25:"#_update/data/upgrade.php";}';
+$installed_sql_list = 'a:1:{i:0;s:36:"DROP TABLE IF EXISTS `dou_fragment`;";}'
+?>

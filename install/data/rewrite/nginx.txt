@@ -1,0 +1,20 @@
++-----------------------------------------------------------------------------
+| 复制以下代码到你的配置文件中对应主机里加入就可，一般加到PHP配置的那段上面
++-----------------------------------------------------------------------------
+
+location / { 
+ if (!-e $request_filename) {
+  rewrite ^/m/index\.html$     /m/index.php last;
+  rewrite ^/m/sitemap\.xml$    /m/sitemap.php last;
+  rewrite ^/m/(.*)$     /m/include/route.php?route=$1 last; 
+  rewrite ^/index\.html$     /index.php last;
+  rewrite ^/sitemap\.xml$    /sitemap.php last;
+  rewrite ^/(.*)$     /index.php?route=$1 last; 
+ } 
+}
+
+
++-----------------------------------------------------------------------------
+| 以下规则适用于某些服务商限制只能一行一行输入规则情况（不允许输入if等非具体规则）
++-----------------------------------------------------------------------------
+rewrite ^/((?:(?!css)(?!jpg)(?!png)(?!js)(?!admin)(?!font)(?!php).)*)$ /index.php?route=$1 last

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+<script type="text/javascript" src="images/jquery.form.min.js"></script>
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div class="mainBox" style="{$workspace.height}">
+   <!-- {if $rec eq 'default'} 单页面列表 -->
+   <h3><a href="{$action_link.href}" class="actionBtn">{$action_link.text}</a>{$ur_here}</h3>
+   <div id="page"> 
+    <!-- {foreach from=$page_list item=page_list} -->
+    <dl class="child{$page_list.level}">
+     <dt>{$page_list.page_name}
+      <p>{$page_list.unique_id}</p>
+     </dt>
+     <dd><a href="page.php?rec=edit&id={$page_list.id}">{$lang.edit}</a> | <a href="page.php?rec=del&id={$page_list.id}">{$lang.del}</a></dd>
+    </dl>
+    <!-- {/foreach} --> 
+   </div>
+   <!-- {/if} --> 
+   <!-- {if $rec eq 'add' || $rec eq 'edit'} 单页面添加或编辑 -->
+   <h3>
+    <a href="{$action_link.href}" class="actionBtn">{$action_link.text}</a>
+    <!-- {if $open.data} -->
+    <a href="data.php?rec=add&module={$cur}&id={$item_id}" class="actionBtn add">{$lang.data_add}</a>
+    <!-- {if !$data.category} --> 
+    <a href="data.php?rec=copy&module={$cur}&id={$item_id}" class="actionBtn">{$lang.data_copy}</a>
+    <!-- {/if} --> 
+    <!-- {/if} --> 
+    {$ur_here}
+   </h3>
+   <form action="page.php?rec={$form_action}" method="post">
+    <div class="formBasic">
+     <dl>
+      <dt>{$lang.page_name}</dt>
+      <dd>
+       <input type="text" name="page_name" value="{$page.page_name}" size="40" class="inpMain" />
+       <span class="lang">{$btn_lang.page_name}</span>
+      </dd>
+     </dl>
+     <dl>
+      <dt>{$lang.unique}</dt>
+      <dd>
+       <input type="text" name="unique_id" value="{$page.unique_id}" size="40" class="inpMain" />
+      </dd>
+     </dl>
+     <dl>
+      <dt>{$lang.parent}</dt>
+      <dd>
+       <select name="parent_id">
+        <option value="0">{$lang.empty}</option>
+        <!-- {foreach from=$page_list item=list} --> 
+        <option value="{$list.id}"{if $list.id eq $page.parent_id} selected="selected"{/if}>{$list.mark} {$list.page_name}</option>
+        <!-- {/foreach} -->
+       </select>
+      </dd>
+     </dl>
+     <dl>
+      <dt>{$lang.page_content}</dt>
+      <dd> 
+       <!-- {if $page.mode eq 'visualize'} -->
+       <a class="btnGray" href="{$page.editor_url}" target="_blank">{$lang.page_mode_visualize_go}</a>
+       <p class="cue">{$lang.page_mode_data_cue_a}{$page.unique_id}.dwt{$lang.page_mode_data_cue_b}<a class="btnSys" href="page.php?rec=visualize&act=clear&id={$page.id}">{$lang.page_mode_visualize_clear}</a></p>
+       <!-- {else} -->
+       <!-- 编辑器（所需变量：$cur、$item_id、$item_content） -->
+        {include file="editor.htm"}
+       <!-- {/if} -->
+       <p class="lang">{$btn_lang.content}</p>
+      </dd>
+     </dl>
+     <!-- {if $open.data} -->
+     <!-- {foreach from=$data.category item=item} -->
+     <dl>
+      <dt>{$item.class.name}</dt>
+      <dd>
+       <div class="fragmentList"> 
+        <!-- {foreach from=$item.list item=list} -->
+        <div class="item">
+         <div class="name">{$list.name}</div>
+         <div class="content">{$list.content}</div>
+         <div class="edit"><a href="data.php?rec=edit&id={$list.id}">{$lang.edit}</a></div>
+        </div>
+        <!-- {/foreach} --> 
+       </div>
+      </dd>
+     </dl>
+     <!-- {/foreach} -->
+     <!-- {/if} -->
+     <dl>
+      <dt>{$lang.keywords}</dt>
+      <dd>
+       <input type="text" name="keywords" value="{$page.keywords}" size="114" class="inpMain" />
+       <span class="lang">{$btn_lang.keywords}</span>
+      </dd>
+     </dl>
+     <dl>
+      <dt>{$lang.description}</dt>
+      <dd>
+       <textarea name="description" cols="115" rows="3" class="textArea" />{$page.description}</textarea>
+       <p class="lang">{$btn_lang.description}</p>
+      </dd>
+     </dl>
+     <dl>
+      <dt>{$lang.page_mode}</dt>
+      <dd>
+       <label for="mode_0">
+        <input type="radio" name="mode" id="mode_0" value="editor"{if $page.mode eq 'editor' || !$page.mode} checked="true"{/if}>
+        {$lang.page_mode_editor}</label>
+       <label for="mode_1">
+        <input type="radio" name="mode" id="mode_1" value="visualize"{if $page.mode eq 'visualize'} checked="true"{/if}>
+        {$lang.page_mode_visualize}</label>
+       <p class="cue">{$lang.page_mode_cue}</p>
+      </dd>
+     </dl>
+     <dl>
+      <input type="hidden" name="token" value="{$token}" />
+      <input type="hidden" name="id" value="{$page.id}">
+      <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+     </dl>
+    </div>
+   </form>
+   <!-- {/if} --> 
+  </div>
+ </div>
+ {include file="footer.htm"} </div>
+{include file="filebox.htm"}
+</body>
+</html>

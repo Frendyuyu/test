@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+<script type="text/javascript" src="images/jquery.tab.js"></script>
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div id="subBox">
+   <div id="sMenu">
+    <h3><i class="fa fa-weixin"></i>{$lang.miniprogram}</h3>
+    <ul>
+     <li><a href="miniprogram.php"{if $rec eq 'default'} class="cur"{/if}>{$lang.miniprogram_list}</a></li>
+     <li><a href="miniprogram.php?rec=release"{if $rec eq 'release'} class="cur"{/if}>{$lang.miniprogram_release}</a></li>
+     <li><a href="miniprogram.php?rec=show"{if $rec eq 'show'} class="cur"{/if}>{$lang.miniprogram_show}</a></li>
+     <li><a href="miniprogram.php?rec=system"{if $rec eq 'system'} class="cur"{/if}>{$lang.miniprogram_system}</a></li>
+     <li><a href="miniprogram.php?rec=install"{if $rec eq 'install'} class="cur"{/if}>{$lang.miniprogram_install}</a></li>
+    </ul>
+   </div>
+   <div id="sMain">
+    <div id="miniprogram" class="mainBox" style="{$workspace.height}"> 
+     <!-- {if $rec eq 'default'} 我的小程序 开始 -->
+     <h3>{$ur_here}</h3>
+     <div class="miniprogramList"> 
+      <!-- {foreach from=$miniprogram_list item=miniprogram} -->
+      <dl class="miniprogram">
+       <p><a href="miniprogram.php?rec=miniprogram&act=enable&unique_id={$miniprogram.unique_id}"><img src="{$miniprogram.image}" width="170" height="230"></a></p>
+       <dt>{$miniprogram.miniprogram_name} {$miniprogram_enable.version}</dt>
+       <dd>{$lang.author}：<a href="{$miniprogram.author_uri}" target="_blank">{$miniprogram.author}</a></dd>
+       <dd class="btnList"><a href="miniprogram.php?rec=del&unique_id={$miniprogram.unique_id}" class="del">{$lang.del}</a> <span><a href="miniprogram.php?rec=release&unique_id={$miniprogram.unique_id}">{$lang.miniprogram_release}</a></span></dd>
+      </dl>
+      <!-- {/foreach} --> 
+     </div>
+     <!-- {/if} 我的小程序 结束 --> 
+     <!-- {if $rec eq 'release'} 发布小程序 开始 -->
+     <h3>{$ur_here}</h3>
+     <div class="release"> 您需要知道：小程序最终是要允许在微信服务器上的，所您需要将DouPHP提供的小程序代码通过微信开发者工具发布到微信服务器，小程序通过接口调用网站内的数据！ <br>
+      <br>
+      小程序目录在站根目录下的“{$miniprogram_path}”目录下，其中“{$miniprogram_path}/code.weixin”才是真正需要通过“微信开发者工具”上传的目录（也就是您小程序的项目目录），它是小程序真正的运行代码，而“{$miniprogram_path}”下面的PHP文件属于后端处理数据的，这些都是后期在小程序里在线调用的，没有直接传到小程序里。<br>
+      我们提供详细的图文说明，<a href="https://www.douphp.com/help/handbook/37.html" target="_blank">点击查看小程序发布帮助文档</a><br>
+      如果您不会发布，<a href="https://www.douphp.com/contact.html" target="_blank">申请客服协助</a> <br>
+      <br>
+      发布前您需要修改一个文件，打开站点根目录下<b>“{$miniprogram_path}/code.weixin/utils/dou.js”</b>然后修改domain为您的网址，如“https://www.domain.com/miniprogram/”修改“www.domain.com部分”，注意以斜杆结束，另外小程序官网要求网站必须开启SSL，也就是网址必须是https开头的，所以您需要咨询您的域名和主机的服务商开启SSL，当然如果是本机测试，可以零时关闭这个要求，方法是在 “微信开发者工具” 顶部菜单 “设置 -> 项目设置 -> 不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书”将这个选项打勾即可。<br>
+      这里附上“微信开发者工具”帮助文档连接，<a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/devtools.html" target="_blank">点击查看小程序帮助文档</a><br>
+      <br>
+      DouPHP将陆续开发各类小程序，请点击左侧“更多小程序”，或访问我们的官方网站 <a href="https://www.douphp.com" target="_blank">www.douphp.com</a>。<br>
+     </div>
+     <!-- {/if} 发布小程序 结束 --> 
+     <!-- {if $rec eq 'system'} 小程序设置 开始 -->
+     <h3>{$ur_here}</h3>
+     <div class="system">
+      <form action="miniprogram.php?rec=system&act=update" method="post">
+       <div class="formBasic"> 
+        <!-- {foreach from=$parameter_list item=parameter} -->
+        <dl>
+         <dt>{$parameter.lang}</dt>
+         <dd>
+          <input type="text" name="{$parameter.name}" value="{$parameter.value}" size="50" class="inpMain" />
+          <!-- {if $parameter.cue} -->
+          <p class="cue">{$parameter.cue}</p>
+          <!-- {/if} --> 
+         </dd>
+        </dl>
+        <!-- {/foreach} -->
+        <dl>
+         <input type="hidden" name="token" value="{$token}" />
+         <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+        </dl>
+       </div>
+      </form>
+     </div>
+     <!-- {/if} 小程序设置 结束 --> 
+     <!-- {if $rec eq 'show'} 幻灯图片 开始 -->
+     <h3>{$ur_here}</h3>
+     <div class="simpleModule">
+      <div class="left">
+       <div class="title">{$lang.show_add}</div>
+       <div class="formBox">
+        <form action="miniprogram.php?rec=show&act={if $show}update{else}insert{/if}"{if $show} class="formEdit"{/if} method="post" enctype="multipart/form-data">
+         <div class="formBasic">
+          <dl>
+           <dt>{$lang.show_name}</dt>
+           <dd><input type="text" name="show_name" value="{$show.show_name}" size="20" class="inpMain" /></dd>
+          </dl>
+          <dl>
+           <dt>{$lang.show_img}</dt>
+           <dd><input type="file" name="show_img" class="inpFlie" />
+            {if $show.show_img}<a href="{$show.show_img}" target="_blank"><img src="images/icon_yes.png"></a>{else}{/if} </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.show_link}</dt>
+           <dd><input type="text" name="show_link" value="{$show.show_link}" size="40" class="inpMain" /></dd>
+          </dl>
+          <dl>
+           <dt>{$lang.sort}</dt>
+           <dd><input type="text" name="sort" value="{if $show.sort}{$show.sort}{else}50{/if}" size="20" class="inpMain" /></dd>
+          </dl>
+          <dl>
+           <!-- {if $show} --> 
+           <a href="miniprogram.php?rec=show" class="btnGray">{$lang.cancel}</a>
+           <input type="hidden" name="id" value="{$show.id}">
+           <!-- {/if} -->
+           <input type="hidden" name="token" value="{$token}" />
+           <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+          </dl>
+         </div>
+        </form>
+       </div>
+      </div>
+      <div class="right">
+       <div class="title">{$lang.show_list}</div>
+       <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableOnebor">
+        <tr>
+         <td width="100">{$lang.show_name}</td>
+         <td></td>
+         <td width="50" align="center">{$lang.sort}</td>
+         <td width="80" align="center">{$lang.handler}</td>
+        </tr>
+        <!-- {foreach from=$show_list item=show_list} -->
+        
+        <tr{if $show_list.id eq $id} class="active"{/if}>
+        
+        <td><a href="{$show_list.show_img}" target="_blank"><img src="{$show_list.show_img}" width="100" /></a></td>
+         <td>{$show_list.show_name}</td>
+         <td align="center">{$show_list.sort}</td>
+         <td align="center"><a href="miniprogram.php?rec=show&act=edit&id={$show_list.id}">{$lang.edit}</a> | <a href="miniprogram.php?rec=show&act=del&id={$show_list.id}">{$lang.del}</a></td>
+        </tr>
+        <!-- {/foreach} -->
+       </table>
+      </div>
+     </div>
+     <!-- {/if} 幻灯图片 结束 --> 
+     <!-- {if $rec eq 'install'} 更多小程序 开始 -->
+     <h3>{$ur_here}</h3>
+     <div class="install">
+      <div class="selector"></div>
+      <div class="cloudList miniprogramList"> </div>
+      <script type="text/javascript">get_cloud_list('miniprogram', '{$get}', '{$localsite}')</script>
+      <div class="pager"></div>
+     </div>
+     <!-- {/if} 更多小程序 结束 --> 
+    </div>
+   </div>
+  </div>
+ </div>
+ {include file="footer.htm"} </div>
+</body>
+</html>

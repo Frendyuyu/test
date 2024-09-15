@@ -1,0 +1,58 @@
+<!-- {if $workspace.admin_theme_custom.menu} -->
+{include file="menu.custom.htm"}
+<!-- {else} -->
+<div id="menu">
+ <ul class="top">
+  <li><a href="index.php"><i class="home"></i><em>{$lang.menu_home}<!-- {if $unum.system} --><span class="unum"><span>{$unum.system}</span></span><!-- {/if} --></em></a></li>
+ </ul>
+ <ul>
+  <li{if $cur eq 'system'} class="cur"{/if}><a href="system.php"><i class="system"></i><em>{$lang.system}</em></a></li>
+  <li{if $cur eq 'nav'} class="cur"{/if}><a href="nav.php"><i class="nav"></i><em>{$lang.nav}</em></a></li>
+  <li{if $cur eq 'page'} class="cur"{/if}><a href="page.php"><i class="page"></i><em>{$lang.menu_page}</em></a></li>
+ </ul>
+ <!-- {if !$workspace.menu_column && !$workspace.menu_single} 如果没有模块则调用单页面菜单 -->
+ <!-- {foreach from=$workspace.menu_simple item=menu} -->
+ <ul>
+  <li{if $cur eq $menu.unique_id} class="cur"{/if}><a href="page.php?rec=edit&id={$menu.id}"><i></i><em>{$menu.page_name}</em></a></li>
+  <!-- {foreach from=$menu.child item=child} -->
+  <li{if $cur eq $child.unique_id} class="cur"{/if}><a href="page.php?rec=edit&id={$child.id}"><i class="menuPage"></i><em>{$child.page_name}</em></a></li>
+  <!-- {/foreach} -->
+ </ul>
+ <!-- {/foreach} -->
+ <!-- {/if} -->
+ <!-- {foreach from=$workspace.menu_column item=menu} -->
+ <ul>
+  <!-- {if $menu.lang_category} -->
+  <li{if $cur eq $menu.name_category} class="cur"{/if}><a href="{$menu.name_category}.php"><i class="{$menu.name}Cat"></i><em>{$menu.lang_category}</em></a></li>
+  <!-- {/if} -->
+  <!-- {if $menu.lang} -->
+  <li{if $cur eq $menu.name} class="cur"{/if}><a href="{$menu.name}.php"><i class="{$menu.name}"></i><em>{$menu.lang}</em></a></li>
+  <!-- {/if} -->
+ </ul>
+ <!-- {/foreach} -->
+ <!-- {if $workspace.menu_single} -->
+ <ul>
+  <!-- {foreach from=$workspace.menu_single item=menu} -->
+  <!-- {if $menu.lang} -->
+  <li{if $cur eq $menu.name} class="cur"{/if}><a href="{$menu.name}.php"><i class="{$menu.name}"></i><em>{$menu.lang}<!-- {if $menu.name eq 'plugin'} -->{if $unum.plugin}<span class="unum"><span>{$unum.plugin}</span></span>{/if}<!-- {/if} --></em></a></li>
+  <!-- {/if} -->
+  <!-- {/foreach} -->
+ </ul>
+ <!-- {/if} -->
+ <ul class="bot">
+  <li{if $cur eq 'site_home' || $cur eq 'show' || $cur eq 'box' || $cur eq 'fragment'} class="cur"{/if}><a href="site_home.php"><i class="show"></i><em><!-- {if $open.box || $open.fragment} -->{$lang.site_home_other}<!-- {else} -->{$lang.show}<!-- {/if} --></em></a></li>
+  <li{if $cur eq 'backup'} class="cur"{/if}><a href="backup.php"><i class="backup"></i><em>{$lang.backup}</em></a></li>
+  <!-- {if !$site.close_miniprogram} -->
+  <li{if $cur eq 'miniprogram'} class="cur"{/if}><a href="miniprogram.php"><i class="miniprogram"></i><em>{$lang.miniprogram}<!-- {if $unum.miniprogram} --><span class="unum"><span>{$unum.miniprogram}</span></span><!-- {/if} --></em></a></li>
+  <!-- {/if} -->
+  <!-- {if !$site.close_mobile} -->
+  <li{if $cur eq 'mobile'} class="cur"{/if}><a href="mobile.php"><i class="mobile"></i><em>{$lang.mobile}</em></a></li>
+  <!-- {/if} -->
+  <!-- {if !$pure_mode} -->
+  <li{if $cur eq 'theme'} class="cur"{/if}><a href="theme.php"><i class="theme"></i><em>{$lang.theme}<!-- {if $unum.theme} --><span class="unum"><span>{$unum.theme}</span></span><!-- {/if} --></em></a></li>
+  <!-- {/if} -->
+  <li{if $cur eq 'manager'} class="cur"{/if}><a href="manager.php"><i class="manager"></i><em>{$lang.manager}</em></a></li>
+ </ul>
+</div>
+<!-- {/if} -->
+<div id="switch-menu" class="switch-menu p-none">></div>

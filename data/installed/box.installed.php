@@ -1,0 +1,4 @@
+<?php
+$installed_file_list = 'a:24:{i:0;s:6:"#admin";i:1;s:14:"#admin/box.php";i:2;s:13:"#admin/images";i:3;s:20:"#admin/images/box.js";i:4;s:16:"#admin/templates";i:5;s:24:"#admin/templates/box.css";i:6;s:24:"#admin/templates/box.htm";i:7;s:5:"#data";i:8;s:12:"#data/backup";i:9;s:20:"#data/backup/box.sql";i:10;s:8:"#include";i:11;s:21:"#include/box.init.php";i:12;s:10:"#languages";i:13;s:16:"#languages/zh_cn";i:14;s:22:"#languages/zh_cn/admin";i:15;s:35:"#languages/zh_cn/admin/box.lang.php";i:16;s:16:"#languages/zh_tw";i:17;s:22:"#languages/zh_tw/admin";i:18;s:35:"#languages/zh_tw/admin/box.lang.php";i:19;s:8:"#_update";i:20;s:19:"#_update/action.php";i:21;s:13:"#_update/data";i:22;s:25:"#_update/data/upgrade.php";i:23;s:25:"#_update/data/upgrade.sql";}';
+$installed_sql_list = 'a:1:{i:0;s:31:"DROP TABLE IF EXISTS `dou_box`;";}'
+?>

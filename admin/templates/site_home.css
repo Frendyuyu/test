@@ -1,0 +1,218 @@
+/*(C) 2013-2024 DouCo Co.,Ltd.*/
+/* siteHome */
+#siteHome .instructions {
+ margin-bottom: 20px;
+ color: #999;
+ line-height: 180%;
+}
+#siteHome .instructions p {
+ margin-bottom: 3px;
+ color: #19B4EA;
+}
+#siteHome .noRepeatValue {
+ display: block;
+ float: none;
+ margin-top: 10px;
+}
+#siteHome .noRepeatValue b {
+ display: inline-block;
+}
+#siteHome .area-box {
+ zoom: 1;
+ width: 100%;
+ overflow: hidden;
+ padding: 0 25px;
+}
+#siteHome .inPage .area-box {
+ padding: 10px 7px;
+}
+#siteHome .area-box.bg {
+ background-color: #EEE;
+ border-top: 1px solid #DDD;
+ border-bottom: 1px solid #DDD;
+ box-sizing: border-box;
+ padding: 25px 25px 10px 25px;
+ margin-bottom: 25px;
+}
+/*- logo -*/
+#siteHome .logo {
+ margin-bottom: 10px;
+}
+#siteHome .logo img {
+ height: 50px;
+ border: 1px solid #DDD;
+}
+/*- slideShow -*/
+#siteHome .slideBox {
+ position: relative;
+ background-color: #EEE;
+ margin-bottom: 30px;
+}
+#siteHome .slideBox .slideShow {
+ position: relative;
+ list-style: none;
+ overflow: hidden;
+ width: 600px;
+ margin: 0 auto;
+}
+#siteHome .slideBox .slideShow li {
+ -webkit-backface-visibility: hidden;
+ position: absolute;
+ display: none;
+ width: 100%;
+ left: 0;
+ top: 0;
+}
+#siteHome .slideBox .slideShow li:first-child {
+ position: relative;
+ display: block;
+ float: left;
+}
+#siteHome .slideBox .slideShow li a {
+ display: block;
+ float: left;
+}
+#siteHome .slideBox .slideShow li a img {
+ width: 100%;
+}
+#siteHome .slideBox .slideShow li a span {
+ display: block;
+ position: absolute;
+ width: 100%;
+ left: 0;
+ top: 0;
+ text-align: center;
+}
+#siteHome .slideBox .slideShow li a span em {
+ display: none;
+ background-color: #999;
+ color: #FFF;
+ padding: 2px 30px;
+}
+#siteHome .slideBox .slideShow li a:hover span em {
+ display: inline-block;
+ background-color: #0072C6;
+ color: #FFF;
+}
+#siteHome .slideBox .slide_nav {
+ display: inline-block;
+ position: absolute;
+ top: 50%;
+ z-index: 2;
+ margin-top: -20px;
+ margin-left: 10px;
+ overflow: hidden;
+ opacity: .7;
+ font-size: 40px;
+ color: #555;
+}
+#siteHome .slideBox .next {
+ right: 0;
+ margin-right: 10px;
+}
+#siteHome .slideBox .slide_nav:active {
+ opacity: 1;
+}
+#siteHome .slideBox .slide_tabs {
+ position: absolute;
+ left: 0;
+ bottom: 10px;
+ width: 100%;
+ text-align: center;
+ font-size: 0;
+ z-index: 2;
+}
+#siteHome .slideBox .slide_tabs li {
+ display: inline-block;
+ margin: 0 3px;
+ *display: inline;
+ *zoom: 1;
+}
+#siteHome .slideBox .slide_tabs a {
+ display: inline-block;
+ width: 9px;
+ height: 9px;
+ border-radius: 50%;
+ line-height: 20px;
+ background-color: rgba(0, 0, 0, .3);
+ background-color: #ccc\9;
+ overflow: hidden;
+ *display: inline;
+ *zoom: 1;
+}
+#siteHome .slideBox .slide_tabs .slide_here a {
+ background-color: rgba(0, 0, 0, .8);
+ background-color: #666\9;
+}
+/*- fragmentList -*/
+#siteHome .fragmentList .item {
+ width: 180px;
+ float: left;
+ margin: 0 15px 15px 0;
+ border: 1px solid #EEE;
+}
+#siteHome .fragmentList .bg .item {
+ border: 1px solid #DDD;
+ background-color: #F5F5F5;
+}
+#siteHome .fragmentList .name {
+ font-size: 14px;
+ font-weight: bold;
+ padding: 4px 10px;
+}
+#siteHome .fragmentList .name.parent {
+ color: #0072C6;
+}
+#siteHome .fragmentList .item .content {
+ height: 57px;
+ overflow: hidden;
+ line-height: 180%;
+ padding: 10px;
+ background-color: #EEE;
+ color: #999;
+}
+#siteHome .fragmentList .item .content img {
+ max-width: 100%;
+ margin: 0 auto;
+}
+#siteHome .fragmentList .edit {
+ padding: 4px 10px;
+}
+#siteHome .fragmentList .edit a {
+ color: #28B779;
+}
+/*- boxList -*/
+#siteHome .boxList {
+ zoom: 1;
+ overflow: hidden;
+ padding: 10px;
+}
+#siteHome .boxList dl {
+ float: left;
+ width: 260px;
+ margin: 0 15px 15px 0;
+}
+#siteHome .boxList dt {
+ border: 1px solid #DDD;
+}
+#siteHome .boxList dt p {
+ padding: 8px 10px;
+}
+#siteHome .boxList dt p.cur {
+ background-color: #60BBFF;
+ color: #FFF;
+}
+#siteHome .boxList dt em {
+ display: block;
+ margin: 0 10px 10px 10px;
+ color: #999;
+ height: 36px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+#siteHome .boxList dd {
+ color: #CCC;
+}
+#siteHome .boxList dd span {
+ float: right;
+}

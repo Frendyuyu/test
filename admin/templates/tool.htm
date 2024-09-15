@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <!-- {if !$developer_mode} -->
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div id="tool" class="mainBox" style="padding-top:18px;{$workspace.height}">
+ <!-- {/if} -->
+   <!-- {if $rec eq 'directory_check'} 目录权限检测 -->
+   <h3>{$ur_here}</h3>
+   <div class="directoryCheck">
+    <!-- {foreach from=$writeable_list item=writeable} -->
+    <dl class="{$writeable.class}">
+     <dt><em>{$writeable.status_text}</em><b>{$writeable.dir}</b></dt>
+     <dd>{$writeable.note}</dd>
+    </dl>
+    <!-- {/foreach} -->
+   </div>
+   <!-- {/if} -->
+   <!-- {if $rec eq 'replace_url'} 编辑器网址替换 -->
+   <h3>{$ur_here}</h3>
+   <form action="tool.php?rec=replace_url_post" method="post">
+    <div class="formBasic">
+     <dl>
+      <dt>{$lang.tool_replace_url_old}</dt>
+      <dd>
+       <input type="text" name="old_url" size="100" class="inpMain" />
+       <p class="cue">{$lang.tool_replace_url_old_cue}</p>
+      </dd>
+     </dl>
+     <dl>
+      <dt>{$lang.tool_replace_url_new}</dt>
+      <dd>
+       <input type="text" name="new_url" size="100" class="inpMain" />
+       <p class="cue">{$lang.tool_replace_url_new_cue}</p>
+      </dd>
+     </dl>
+     <dl>
+      <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+     </dl>
+    </div>
+   </form>
+   <!-- {/if} -->
+   <!-- {if $rec eq 'custom_admin_path'} 后台目录自定义 -->
+   <div class="developer">
+    <h3><a href="{$action_link.href}" class="actionBtn">{$action_link.text}</a>{$ur_here}</h3>
+    <div class="box">
+    <form action="{$site.root_url}cache/custom_admin_path.candel.php" method="post">
+     <div class="formBasic">
+      <dl>
+       <dt>{$lang.tool_custom_admin_path_new}</dt>
+       <dd>
+        <input type="text" name="new_path" size="20" class="inpMain" />
+        <p class="cue">{$lang.tool_custom_admin_path_cue}</p>
+       </dd>
+      </dl>
+      <dl>
+       <input type="hidden" name="old_path" value="{$admin_path}" />
+       <input type="hidden" name="{$session_key}" value="{$session_value}" />
+       <input type="hidden" name="root_url" value="{$site.root_url}" />
+       <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+      </dl>
+     </div>
+    </form>
+    </div>
+   </div>
+   <!-- {/if} -->
+  <!-- {if !$developer_mode} -->
+   </div>
+  </div>
+  <!-- {/if} -->
+ </div>
+ {include file="footer.htm"} </div>
+</body>
+</html>

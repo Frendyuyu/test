@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="copyright" content="DouCo Co.,Ltd." />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>{$lang.home}{if $ur_here} - {$ur_here} {/if}</title>
+<link href="{$site.root_url}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="templates/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="templates/public.css" rel="stylesheet" type="text/css">
+{include file="javascript.htm"}
+</head>
+<body>
+<div id="dcWrap"> {include file="header.htm"}
+ <div id="dcLeft">{include file="menu.htm"}</div>
+ <div id="dcMain"> {include file="handle.htm"}
+  <div id="subBox">
+   <div id="sMenu">
+    <h3><i class="fa fa-picture-o"></i>{$lang.menu_site_home_other}</h3>
+    <ul>
+     <li><a href="site_home.php"{if $cur eq 'site_home'} class="cur"{/if}>{$lang.site_home}</a></li>
+     <li><a href="show.php"{if $cur eq 'show'} class="cur"{/if}>{$lang.show}</a></li>
+     <!-- {if $open.fragment} -->
+     <li><a href="fragment.php"{if $cur eq 'fragment'} class="cur"{/if}>{$lang.fragment}</a></li>
+     <!-- {/if} -->
+     <li><a href="box.php"{if $cur eq 'box'} class="cur"{/if}>{$lang.box}</a></li>
+    </ul>
+   </div>
+   <div id="sMain">
+    <div id="box" class="mainBox simpleModule" style="{$workspace.height}">
+     <h3>{$ur_here}</h3>
+     <div class="instructions">
+      <p>调用时是根据分组别名，具体方式是：</p>
+      {literal} 
+      <!-- {foreach from=$box_list.分组别名 item=item} --> 
+      名称：{$item.name}，分组：{$item.class}，文字内容：{$item.text}，图片：{$item.image}，排序：{$item.sort} 
+      <!-- {/foreach} --> 
+      {/literal} </div>
+     <!-- {if $class_tab} -->
+     <ul class="tab">
+      <!-- {foreach from=$class_tab item=item} -->
+      <li><a href="box.php?class_unique_id={$item.class_unique_id}"{if $item.cur} class="selected"{/if}>{$item.class} / {$item.class_unique_id}</a></li>
+      <!-- {/foreach} -->
+     </ul>
+     <!-- {/if} -->
+     <div class="simpleModule">
+      <div class="left">
+       <div class="title">{$lang.show_add}</div>
+       <div class="formBox">
+        <form action="box.php?rec={if $box}update{else}insert{/if}"{if $box} class="formEdit"{/if} method="post" enctype="multipart/form-data">
+         <div class="formBasic" style="margin-top: 4px;">
+          <dl>
+           <dt>{$lang.box_name}</dt>
+           <dd>
+            <input type="text" name="name" value="{$box.name}" size="30" class="inpMain" />
+            <p class="lang">{$btn_lang.name}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.box_class} / {$lang.box_class_unique_id}</dt>
+           <dd>
+            <input type="text" name="class" value="{if $box.class}{$box.class}{else}{$class_cur}{/if}" id="class" size="10" class="inpMain" />
+            /
+            <input type="text" name="class_unique_id" value="{if $box.class}{$box.class_unique_id}{else}{$class_unique_id_cur}{/if}" id="class_unique_id"  size="12" class="inpMain" />
+            <br>
+            <div class="noRepeatValue"> 
+             <!-- {foreach from=$class_list item=item} --> 
+             <b onclick="boxClass('class', '{$item.class}', 'class_unique_id', '{$item.class_unique_id}')"{if $item.cur} class="cur"{/if}>{$item.class}</b> 
+             <!-- {/foreach} --> 
+            </div>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.box_text}</dt>
+           <dd>
+            <textarea name="text" rows="4" cols="50" class="textArea">{$box.text}</textarea>
+            <p class="lang">{$btn_lang.text}</p>
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.box_link}</dt>
+           <dd>
+            <input type="text" name="link" value="{$box.link}" size="30" class="inpMain" />
+           </dd>
+          </dl>
+          <dl>
+           <dt>{$lang.box_image}</dt>
+           <dd>
+            <input type="file" name="image" class="inpFlie" />
+            <p class="lang">{$btn_lang.image}</p>
+            {if $box.image}<a href="{$box.image}" target="_blank"><img src="images/icon_yes.png"></a>{/if}</dd>
+          </dl>
+          <dl>
+           <dt>{$lang.sort}</dt>
+           <dd>
+            <input type="text" name="sort" value="{if $box.sort}{$box.sort}{else}50{/if}" size="5" class="inpMain" />
+           </dd>
+          </dl>
+          <dl>
+           <!-- {if $box} --> 
+           <a href="box.php" class="btnGray">{$lang.cancel}</a>
+           <input type="hidden" name="id" value="{$box.id}">
+           <!-- {/if} -->
+           <input type="hidden" name="token" value="{$token}" />
+           <input name="submit" class="btn" type="submit" value="{$lang.btn_submit}" />
+          </dl>
+         </div>
+        </form>
+       </div>
+      </div>
+      <div class="right">
+       <div class="title">{$lang.box_list}</div>
+       <div class="boxList"> 
+        <!-- {foreach from=$box_list item=box_list} -->
+        <dl>
+         <dt> <p{if $box_list.id eq $box.id} class="cur"{/if}>{$box_list.name}<!-- {if $box_list.image} --> <a href="{$box_list.image}" target="_blank"><img src="{$box_list.image}" width="16" height="16" align="absMiddle"></a><!-- {/if} -->
+          </p>
+          <em title="{$box_list.text}">{$box_list.text}</em> </dt>
+         <dd><span><a href="box.php?rec=edit&id={$box_list.id}">{$lang.edit}</a> | <a href="box.php?rec=del&id={$box_list.id}">{$lang.del}</a></span>{$lang.sort}：{$box_list.sort}</dd>
+        </dl>
+        <!-- {/foreach} --> 
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ {include file="footer.htm"} </div>
+</body>
+</html>
